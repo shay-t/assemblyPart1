@@ -1,0 +1,17 @@
+segment .data 			;DS
+var dd  0xC084FEBA 		;declaration de la variable define double word code sur 32bit
+	;..............
+segment .bss                    ;SS
+        ;..............
+segment .text                   ;CS
+global _main			;debut du programe reconnu par gcc
+extern _printf                  ;etiquette vers une fonction extern printf
+_main:	                        ;etiquette vers le debut du programme
+_b100:	mov eax,[var]           ;1ere etape on depose le contenu de var en eax
+_b150:	mov dx,0                ;2eme etape on vide dx
+_b200:	mov dx,ax                 ;3eme etape le chargement du 2eme octet en al
+_b250:	mov ebx,[a]
+_b300:	mov edx,[ebx]
+fin:
+ret
+        ;..............

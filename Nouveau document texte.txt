@@ -1,0 +1,67 @@
+segment .data 			;DS
+a dw 10 			;declaration de la variable
+	;..............
+segment .bss                    ;SS
+        ;..............
+segment .text                   ;CS
+global _main			;debut du programe reconnu par gcc
+extern _printf                  ;etiquette vers une fonction extern printf
+_main:	                        ;etiquette vers le debut du programme
+_b100:	mov eax ,10
+_b150:	mov eax ,a
+_b200:	mov ebx,eax
+fin: ret
+        ;..............
+------------------------------------------------------
+segment .data 			;DS	
+var dw 10
+       ;..............
+segment .bss                     ;SS
+       ;..............
+segment .text                    ;CS
+global _main
+extern _printf	
+_main:
+_b100:	mov eax,ebx 		;adressage registre
+_b150:	mov ebx,9               ;adressage immediat
+_b200:	mov eax,[var]           ;adressage direct
+_b250:	mov eax, var            ;adressage relatif
+_b300:	mov eax,[ebx]           ;adressage indirect(ou base)	
+fin :
+ret
+       ;..............
+------------------------------------------------------------------------
+info_one: dd 10
+info_two: dd 11
+resultat: dd 0
+
+
+mov ebp, esp; for correct debugging
+    _b1:mov eax,0;initialiser
+    _b2:add eax,[info_one]
+    _b3: add eax,[info_two]
+    _b4:mov [resultat],eax 
+    ret
+------------------------------
+tab: db 8,10,5,6,7,20
+resultat_add: dw 0
+resultat_sub: dw 0
+section .text
+global CMAIN
+CMAIN:
+    mov ebp, esp; for correct debugging
+    ;partie 1
+    mov ebp, esp; for correct debugging
+    mov al,[tab] ;premier element
+    mov bl,[tab+2] ;troisieme element
+    add al,bl
+    mov [resultat_add],al
+    ;partie 2
+    mov esi,tab
+    mov cl,[esi+1] ;esi aulieu de si (problem 32)
+    mov dl,[esi+4]
+    sub dl,cl
+    mov [resultat_sub],dl
+    
+    ret
+----------------------
